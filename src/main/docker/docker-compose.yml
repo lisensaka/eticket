@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  postgresql:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: eticket_password
+      POSTGRES_USER: eticket_user
+      POSTGRES_DB: eticket-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - eticket-pg-db:/var/lib/postgresql/data
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - '5050:5050'
+      - '85:80'
+    links:
+      - postgresql:postgresql
+    depends_on:
+      - postgresql
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ewow@ewow.com
+      PGADMIN_DEFAULT_PASSWORD: ewow123
+
+#  ewow-app:
+#    image: lisensaka/ewow-be-app-first-version:0.1
+#    ports:
+#      - '8080:8080'
+#    depends_on:
+#      - postgresql
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql/ewow-db
+volumes:
+  eticket-pg-db:
