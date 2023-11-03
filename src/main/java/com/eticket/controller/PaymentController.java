@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static com.eticket.configurations.constants.ConstantsConfiguration.PAYMENT_API_PATH;
 
 @RestController
@@ -27,7 +29,7 @@ public class PaymentController {
 
     @PostMapping("/make-payment")
     public ResponseEntity<String> createPaymentForTicketDetails(
-            @RequestBody PaymentRequestDto paymentRequestDto
+            @Valid @RequestBody PaymentRequestDto paymentRequestDto
     ) {
         paymentService.createPaymentForTicketDetails(paymentRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
